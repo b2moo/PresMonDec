@@ -123,4 +123,5 @@ if __name__ == "__main__":
         x = Int('x')
         smt = parse_smt2_file(sys.argv[1])
         phi = And([f for f in smt])
-        test(phi)
+        phi_vars = [v.unwrap() for v in get_formula_variables(phi)]
+        test(phi, *phi_vars)
