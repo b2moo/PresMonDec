@@ -1,3 +1,5 @@
+#!/bin/env python3
+# -*- coding: utf-8 -*-
 from z3 import *
 from presmondec import congruent, monadic_decomposable, monadic_decomposable_without_bound
 from mondec import mondec
@@ -112,4 +114,13 @@ def run_tests():
 
 
 if __name__ == "__main__":
-    run_tests()
+    if "--help" in sys.argv[1:]:
+        print("Usage: %s file.smt2" % sys.argv[0])
+    elif not sys.argv[1:]:
+        print("Default run_tests")
+        run_tests()
+    else:
+        x = Int('x')
+        smt = parse_smt2_file(sys.argv[1])
+        phi = And([f for f in smt])
+        test(phi)
